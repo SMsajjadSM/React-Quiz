@@ -4,9 +4,12 @@ import Main from "./Main.js";
 import Loader from "./Loader.js";
 import Error from "./Error.js";
 import StartScreen from "./startScreen";
+import Question from "./Question.js";
 const initialState = {
   question: [],
+  //loading,error,ready,active,finished
   status: "loading",
+  index: 0,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -20,13 +23,20 @@ function reducer(state, action) {
       return {
         status: "error",
       };
-
+    case "start":
+      return {
+        ...state,
+        status: "active",
+      };
     default:
       throw new Error("Action is unkonwn");
   }
 }
 export default function App() {
-  const [{ question, status }, dispatch] = useReducer(reducer, initialState);
+  const [{ question, status, index }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
   const questionLength = question.length;
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -40,7 +50,10 @@ export default function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && <StartScreen questionLength={questionLength} />}
+        {status === "ready" && (
+          <StartScreen questionLength={questionLength} dispatch={dispatch} />
+        )}
+        {status === "active" && <Question question={question[index]} />}
       </Main>
     </div>
   );
