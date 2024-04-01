@@ -7,6 +7,7 @@ import StartScreen from "./startScreen";
 import Question from "./Question.js";
 import NextBtn from "./NextBtn.js";
 import Progress from "./Progress";
+import Finish from "./Finish.js";
 const initialState = {
   question: [],
   //loading,error,ready,active,finished
@@ -48,16 +49,21 @@ function reducer(state, action) {
         index: state.index + 1,
         answer: null,
       };
+    case "finish":
+      return {
+        ...state,
+        status: "finish",
+      };
     default:
       throw new Error("Action is unkonwn");
   }
 }
 export default function App() {
-  const [{ question, status, index, answer,points }, dispatch] = useReducer(
+  const [{ question, status, index, answer, points }, dispatch] = useReducer(
     reducer,
     initialState
   );
-  const allPoints = question.reduce((prev , cur) =>prev + cur.points,0);
+  const allPoints = question.reduce((prev, cur) => prev + cur.points, 0);
   const questionLength = question.length;
   useEffect(function () {
     fetch("http://localhost:8000/questions")
@@ -76,15 +82,27 @@ export default function App() {
         )}
         {status === "active" && (
           <>
-            <Progress answer={answer} allPoints={allPoints} points={points} questionLength={questionLength} index={index} />
+            <Progress
+              answer={answer}
+              allPoints={allPoints}
+              points={points}
+              questionLength={questionLength}
+              index={index}
+            />
             <Question
               answer={answer}
               dispatch={dispatch}
               question={question[index]}
             />
-            <NextBtn dispatch={dispatch} answer={answer} />
+            <NextBtn
+              index={index}
+              questionLength={questionLength}
+              dispatch={dispatch}
+              answer={answer}
+            />
           </>
         )}
+        {status === "finish" && <Finish point={points} allPoints={allPoints} />}
       </Main>
     </div>
   );
