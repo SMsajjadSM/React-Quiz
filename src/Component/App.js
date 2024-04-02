@@ -8,6 +8,8 @@ import Question from "./Question.js";
 import NextBtn from "./NextBtn.js";
 import Progress from "./Progress";
 import Finish from "./Finish.js";
+import Footer from "./Footer.js"
+import Timer from "./Timer.js";
 const initialState = {
   question: [],
   //loading,error,ready,active,finished
@@ -15,6 +17,7 @@ const initialState = {
   index: 0,
   answer: null,
   points: 0,
+  hightscore: 0,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -53,16 +56,22 @@ function reducer(state, action) {
       return {
         ...state,
         status: "finish",
+        hightscore:
+          state.points > state.hightscore ? state.points : state.hightscore,
+      };
+    case "restart":
+      return {
+        ...initialState,
+        question: state.question,
+        status: "ready",
       };
     default:
       throw new Error("Action is unkonwn");
   }
 }
 export default function App() {
-  const [{ question, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [{ question, status, index, answer, points, hightscore }, dispatch] =
+    useReducer(reducer, initialState);
   const allPoints = question.reduce((prev, cur) => prev + cur.points, 0);
   const questionLength = question.length;
   useEffect(function () {
@@ -94,15 +103,25 @@ export default function App() {
               dispatch={dispatch}
               question={question[index]}
             />
-            <NextBtn
-              index={index}
-              questionLength={questionLength}
-              dispatch={dispatch}
-              answer={answer}
-            />
+            <Footer>
+              <Timer />
+              <NextBtn
+                index={index}
+                questionLength={questionLength}
+                dispatch={dispatch}
+                answer={answer}
+              />
+            </Footer>
           </>
         )}
-        {status === "finish" && <Finish point={points} allPoints={allPoints} />}
+        {status === "finish" && (
+          <Finish
+            hightscore={hightscore}
+            point={points}
+            allPoints={allPoints}
+            dispatch={dispatch}
+          />
+        )}
       </Main>
     </div>
   );
