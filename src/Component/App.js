@@ -8,7 +8,7 @@ import Question from "./Question.js";
 import NextBtn from "./NextBtn.js";
 import Progress from "./Progress";
 import Finish from "./Finish.js";
-import Footer from "./Footer.js"
+import Footer from "./Footer.js";
 import Timer from "./Timer.js";
 const initialState = {
   question: [],
@@ -18,6 +18,7 @@ const initialState = {
   answer: null,
   points: 0,
   hightscore: 0,
+  seconds: null,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -35,6 +36,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: "active",
+        seconds: state.question.length * 20,
       };
     case "newAnswer":
       const question = state.question.at(state.index);
@@ -65,13 +67,21 @@ function reducer(state, action) {
         question: state.question,
         status: "ready",
       };
+    case "tick":
+      return {
+        ...state,
+        seconds: state.seconds - 1,
+        status: state.seconds === 0 ? "finish" : state.status,
+      };
     default:
       throw new Error("Action is unkonwn");
   }
 }
 export default function App() {
-  const [{ question, status, index, answer, points, hightscore }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { question, status, index, answer, points, hightscore, seconds },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   const allPoints = question.reduce((prev, cur) => prev + cur.points, 0);
   const questionLength = question.length;
   useEffect(function () {
@@ -104,7 +114,7 @@ export default function App() {
               question={question[index]}
             />
             <Footer>
-              <Timer />
+              <Timer seconds={seconds} dispatch={dispatch} />
               <NextBtn
                 index={index}
                 questionLength={questionLength}
