@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,51 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+
+# Parallex website
+## This Wbsite Have New Experience!!
+
+
+[Demo of Parallex](https://smsajjadsm.github.io/Parallex/)
+===
+![plot](./img/1.png)
+![plot](./img/2.png)
+
+
+
+
+
+## Features
+
+- Layered and beautiful user interface
+
+
+
+
+
+
+
+## Installation
+
+
+First clone project ...
+
+```sh
+https://github.com/SMsajjadSM/Parallex.git
+```
+
+Install the dependencies and devDependencies
+
+```sh
+npm i
+```
+
+
+#### How to support?
+ If you enjoyed and used this post,
+I would appreciate it if you could
+support me by giving me a ⭐
+
+[SMsajjadSM](https://github.com/SMsajjadSM/Parallex)
+>>>>>>> 07c8c9b3381252b06da2f077d64b85d9d2122abe
