@@ -1,7 +1,8 @@
 
-# usePopcorn website
+# React-Quiz website
+Test your React Skills
 
-[Demo of usePopcorn](https://smsajjadsm.github.io/usePopcorn/)
+[Demo of React-Quiz](https://smsajjadsm.github.io/React-Quiz/)
 ===
 
 
