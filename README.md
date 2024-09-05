@@ -4,7 +4,7 @@ Test your React Skills
 
 [Demo of React-Quiz](https://smsajjadsm.github.io/React-Quiz/)
 ===
-
+need to active server for get api first
 
 
 ## Installation
