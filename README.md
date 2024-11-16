@@ -1,6 +1,6 @@
 
 # React-Quiz website
-Test your React Skills
+Test your React Skills on React-Quiz
 
 [Demo of React-Quiz](https://smsajjadsm.github.io/React-Quiz/)
 ===
